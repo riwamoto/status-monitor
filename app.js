@@ -21,11 +21,22 @@ function renderUrls() {
   list.innerHTML = "";
   urls.forEach((domain) => {
     const li = document.createElement("li");
+    li.className =
+      "flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-3 shadow-sm";
     li.innerHTML = `
-            🌐 ${domain}
-            <button onclick="manualCheck('${domain}', this)">チェック</button>
-            <span id="status-${domain}">未チェック</span>
-        `;
+      <div class="font-medium text-gray-700 flex items-center">
+        🌐 <span class="ml-2">${domain}</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="manualCheck('${domain}', this)"
+          class="text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md transition duration-200">
+          チェック
+        </button>
+        <span id="status-${domain}" class="text-sm font-medium px-2 py-1 rounded-full bg-gray-200 text-gray-600">
+          未チェック
+        </span>
+      </div>
+    `;
     list.appendChild(li);
   });
 }
@@ -83,11 +94,23 @@ async function checkAllDomains() {
 
 // 手動チェック用（ボタン用）
 async function manualCheck(domain, btn) {
-  btn.nextElementSibling.textContent = "🔄 チェック中...";
+  const statusElem = document.getElementById(`status-${domain}`);
+  statusElem.textContent = "チェック中…";
+  statusElem.className =
+    "text-sm font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-600";
+
   const status = await checkDomain(domain);
-  btn.nextElementSibling.textContent = status
-    ? "✅ オンライン"
-    : "❌ オフライン";
+
+  if (status) {
+    statusElem.textContent = "オンライン";
+    statusElem.className =
+      "text-sm font-medium px-2 py-1 rounded-full bg-green-100 text-green-700";
+  } else {
+    statusElem.textContent = "オフライン";
+    statusElem.className =
+      "text-sm font-medium px-2 py-1 rounded-full bg-red-100 text-red-700";
+  }
+
   statuses[domain] = status;
 }
 
