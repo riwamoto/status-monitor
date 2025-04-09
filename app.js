@@ -114,8 +114,9 @@ async function manualCheck(domain, btn) {
   statuses[domain] = status;
 }
 
-// 🔄 定期チェック（5分ごと）
-setInterval(checkAllDomains, 0.5 * 60 * 1000);
+// チェック間隔（settings.htmlで保存した値を使うよ）
+const intervalMin = parseInt(localStorage.getItem("checkInterval")) || 5;
+setInterval(checkAllDomains, intervalMin * 60 * 1000);
 
 // 🔔 通知許可を最初にリクエスト
 if (
