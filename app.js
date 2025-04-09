@@ -51,6 +51,38 @@ function notify(domain, status) {
   });
 }
 
+// 疑似チェックモードでステータスを強制的に変化させるロジック
+function simulateFakeStatusFluctuation() {
+  const testMode = localStorage.getItem("testMode") === "true";
+  if (!testMode) return;
+
+  urls.forEach((domain) => {
+    // 今のステータスを反転（true ⇄ false）
+    const current = statuses[domain] ?? true;
+    const fakeStatus = !current;
+    statuses[domain] = fakeStatus;
+
+    // 表示を更新
+    const statusElem = document.getElementById(`status-${domain}`);
+    if (statusElem) {
+      statusElem.textContent = fakeStatus
+        ? "オンライン（テスト）"
+        : "オフライン（テスト）";
+      statusElem.className = fakeStatus
+        ? "text-sm font-medium px-2 py-1 rounded-full bg-green-100 text-green-700"
+        : "text-sm font-medium px-2 py-1 rounded-full bg-red-100 text-red-700";
+    }
+
+    // 通知（状態が変わるたび）
+    if (Notification.permission === "granted") {
+      notify(domain, fakeStatus);
+    }
+  });
+}
+
+// ⏱️ テストモード専用：一定間隔で状態を反転
+setInterval(simulateFakeStatusFluctuation, 30000); // 30秒ごとに変化
+
 async function checkDomain(domain) {
   const timeout = 5000;
   return new Promise((resolve) => {

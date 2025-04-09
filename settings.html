@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>管理画面 | ステータス監視くん</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-800 font-sans p-6">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md space-y-6">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理画面 | ステータス監視くん</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans p-6">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md space-y-6">
+      <h2 class="text-xl font-bold text-blue-600 flex items-center">
+        ⚙️ 管理画面
+      </h2>
 
-    <h2 class="text-xl font-bold text-blue-600 flex items-center">
-      ⚙️ 管理画面
-    </h2>
+      <!-- ⏰ チェック間隔設定 -->
+      <div>
+        <label class="block text-sm font-medium mb-1">チェック間隔（分）</label>
+        <select id="interval-select" class="w-full border rounded px-3 py-2">
+          <option value="1">1分</option>
+          <option value="5">5分</option>
+          <option value="10">10分</option>
+          <option value="30">30分</option>
+        </select>
+      </div>
 
-    <!-- ⏰ チェック間隔設定 -->
-    <div>
-      <label class="block text-sm font-medium mb-1">チェック間隔（分）</label>
-      <select id="interval-select" class="w-full border rounded px-3 py-2">
-        <option value="1">1分</option>
-        <option value="5">5分</option>
-        <option value="10">10分</option>
-        <option value="30">30分</option>
-      </select>
+      <!-- 🌐 ドメイン管理 -->
+      <div>
+        <h3 class="font-semibold mb-2">登録済みドメイン一覧</h3>
+        <ul id="domain-list" class="space-y-2"></ul>
+      </div>
+
+      <!-- 🧼 全リセット -->
+      <div>
+        <button
+          onclick="clearAllData()"
+          class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
+        >
+          全データを削除する
+        </button>
+      </div>
+      <!-- 🔁 テストモード切り替え -->
+      <div>
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="testmode-toggle" class="mr-2" />
+          疑似チェックモード（状態が自動で変化する）
+        </label>
+      </div>
     </div>
-
-    <!-- 🌐 ドメイン管理 -->
-    <div>
-      <h3 class="font-semibold mb-2">登録済みドメイン一覧</h3>
-      <ul id="domain-list" class="space-y-2"></ul>
-    </div>
-
-    <!-- 🧼 全リセット -->
-    <div>
-      <button onclick="clearAllData()"
-        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition">
-        全データを削除する
-      </button>
-    </div>
-
-  </div>
-  <script src="settings.js"></script>
-</body>
+    <script src="settings.js"></script>
+  </body>
 </html>

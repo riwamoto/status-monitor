@@ -56,3 +56,12 @@ function clearAllData() {
     document.getElementById("interval-select").value = "5"; // デフォルト
   }
 }
+
+// 🔁 テストモード：初期表示・切り替え保存
+const testToggle = document.getElementById("testmode-toggle");
+const testModeStored = localStorage.getItem("testMode");
+testToggle.checked = testModeStored === "true";
+
+testToggle.addEventListener("change", () => {
+  localStorage.setItem("testMode", testToggle.checked ? "true" : "false");
+});
