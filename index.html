@@ -1,30 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ステータス監視くん</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="manifest" href="manifest.json">
-</head>
-<body class="bg-gray-100 text-gray-800 font-sans min-h-screen p-6">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
-    <h1 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
-      <span class="mr-2">📡</span> ステータス監視くん
-    </h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>ステータス監視くん</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans min-h-screen p-6">
+    <header class="bg-blue-600 text-white p-4 shadow-md mb-6">
+      <div
+        class="max-w-xl mx-auto flex flex-col sm:flex-row sm:justify-between sm:items-center"
+      >
+        <h1 class="text-lg font-bold mb-2 sm:mb-0">📡 ステータス監視くん</h1>
+        <nav class="flex space-x-4 text-sm justify-center">
+          <a href="index.html" class="hover:underline">監視画面</a>
+          <a href="dashboard.html" class="hover:underline">ダッシュボード</a>
+          <a href="settings.html" class="hover:underline">管理画面</a>
+        </nav>
+      </div>
+    </header>
 
-    <div class="flex mb-4">
-      <input id="url-input" type="text" placeholder="例: google.com"
-             class="flex-grow border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400" />
-      <button onclick="addUrl()"
-              class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">
-        追加
-      </button>
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
+      <h1 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+        <span class="mr-2">📡</span> ステータス監視くん
+      </h1>
+
+      <div class="flex mb-4">
+        <input
+          id="url-input"
+          type="text"
+          placeholder="例: google.com"
+          class="flex-grow border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-400"
+        />
+        <button
+          onclick="addUrl()"
+          class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300"
+        >
+          追加
+        </button>
+      </div>
+
+      <ul id="url-list" class="space-y-4"></ul>
     </div>
 
-    <ul id="url-list" class="space-y-4"></ul>
-  </div>
-
-  <script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
