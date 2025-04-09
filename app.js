@@ -160,3 +160,13 @@ if (
 
 renderUrls();
 checkAllDomains(); // 起動時にも一度チェック
+
+window.testNotify = () => {
+  if (Notification.permission === "granted") {
+    notify("test.example.com", Math.random() > 0.5);
+  } else {
+    Notification.requestPermission().then((result) => {
+      if (result === "granted") notify("test.example.com", true);
+    });
+  }
+};
