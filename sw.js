@@ -41,3 +41,11 @@ self.addEventListener("fetch", (event) => {
       })
   );
 });
+
+self.addEventListener("message", (event) => {
+  const { title, body } = event.data;
+  self.registration.showNotification(title, {
+    body,
+    icon: "icons/icon-192.png",
+  });
+});

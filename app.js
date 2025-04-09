@@ -104,14 +104,23 @@ async function checkAllDomains() {
     const currentStatus = await checkDomain(domain);
     const previousStatus = statuses[domain];
 
-    // 状態が変わったら通知！
     if (previousStatus !== undefined && currentStatus !== previousStatus) {
       if (Notification.permission === "granted") {
         notify(domain, currentStatus);
+
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.ready.then((registration) => {
+            registration.active.postMessage({
+              title: "📡 ステータス監視くん",
+              body: `${domain} が ${
+                currentStatus ? "オンライン" : "オフライン"
+              }になりました（SW通知）`,
+            });
+          });
+        }
       }
     }
 
-    // 表示更新
     const statusElem = document.getElementById(`status-${domain}`);
     if (statusElem) {
       statusElem.textContent = currentStatus
@@ -119,7 +128,6 @@ async function checkAllDomains() {
         : "❌ オフライン";
     }
 
-    // 状態を保存
     statuses[domain] = currentStatus;
   }
 }
@@ -162,11 +170,32 @@ renderUrls();
 checkAllDomains(); // 起動時にも一度チェック
 
 window.testNotify = () => {
+  console.log("📣 通知関数呼び出し！");
+
+  const time = new Date().toLocaleTimeString();
+  const body = `これはテスト通知です♪ 時刻: ${time}`;
+
+  if (!("Notification" in window)) {
+    alert("このブラウザは通知をサポートしていません💦");
+    return;
+  }
+
   if (Notification.permission === "granted") {
-    notify("test.example.com", Math.random() > 0.5);
+    console.log("✅ 通知許可済み");
+    new Notification("📡 ステータス監視くん", {
+      body: body,
+      icon: "icons/icon-192.png",
+    });
   } else {
-    Notification.requestPermission().then((result) => {
-      if (result === "granted") notify("test.example.com", true);
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        new Notification("📡 ステータス監視くん", {
+          body: body,
+          icon: "icons/icon-192.png",
+        });
+      } else {
+        alert("通知が許可されていませんでした🥺");
+      }
     });
   }
 };
