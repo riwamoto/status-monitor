@@ -1,12 +1,14 @@
 // 🔖 キャッシュの名前（バージョン管理用）
 // キャッシュの内容を更新したいときは名前を変えてね♪
-const CACHE_NAME = "status-monitor-cache-v1";
+const CACHE_NAME = "status-monitor-cache-v2";
 
 // 📦 最初にキャッシュしておきたいファイルの一覧
 // ここに書いたファイルは Service Worker の「インストール時」に保存されるよ
 const urlsToCache = [
   "/", // ルート（index.htmlへのショートカット）
   "/index.html", // メインHTML
+  "/dashboard.html", // 🆕 ダッシュボード
+  "/settings.html", // 🆕 管理画面
   "/styles.css", // スタイルシート
   "/app.js", // アプリのメインスクリプト
   "/manifest.json", // PWAのマニフェスト
