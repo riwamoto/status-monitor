@@ -79,10 +79,17 @@ function simulateFakeStatusFluctuation() {
     }
   });
 }
-
 // ⏱️ テストモード専用：一定間隔で状態を反転
 setInterval(simulateFakeStatusFluctuation, 30000); // 30秒ごとに変化
 
+function requestNotificationPermission() {
+  if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission().then((permission) => {
+      console.log("通知の許可:", permission);
+    });
+  }
+}
+// 🔔 通知許可をリクエスト（初回起動時）
 async function checkDomain(domain) {
   const timeout = 5000;
   return new Promise((resolve) => {
