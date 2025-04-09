@@ -45,6 +45,25 @@
         <ul id="domain-list" class="space-y-2"></ul>
       </div>
 
+      <!-- 🔘 通知切り替え -->
+      <div class="space-y-2">
+        <label class="inline-flex items-center">
+          <input type="checkbox" id="notify-toggle" class="mr-2" />
+          通知を有効にする（設定）
+        </label>
+
+        <!-- 🌟 通知の許可リクエストボタン -->
+        <button
+          onclick="requestNotificationPermission()"
+          class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-md transition text-sm"
+        >
+          🔔 ブラウザ通知を有効にする
+        </button>
+        <p class="text-xs text-gray-500">
+          ※このボタンは初回アクセス時に通知許可を出すためのものです。
+        </p>
+      </div>
+
       <!-- 🧼 全リセット -->
       <div>
         <button

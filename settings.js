@@ -57,6 +57,24 @@ function clearAllData() {
   }
 }
 
+// 🔔 通知の許可リクエスト（iOS/Android/PC共通）
+function requestNotificationPermission() {
+  if ("Notification" in window && Notification.permission !== "granted") {
+    Notification.requestPermission().then((permission) => {
+      console.log("📣 通知の許可結果:", permission);
+      if (permission === "granted") {
+        alert("通知が有効になりました🎉✨");
+      } else {
+        alert("通知は有効にされませんでした🥲");
+      }
+    });
+  } else if (Notification.permission === "granted") {
+    alert("すでに通知は有効になっています🎊✨");
+  } else {
+    alert("お使いの環境では通知がサポートされていない可能性があります💦");
+  }
+}
+
 // 🔁 テストモード：初期表示・切り替え保存
 const testToggle = document.getElementById("testmode-toggle");
 const testModeStored = localStorage.getItem("testMode");
